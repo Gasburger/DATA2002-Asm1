@@ -1,0 +1,236 @@
+---
+title: "DATA2002 Assignment"
+author: "Utsav Mitra"
+date: "19/09/2020"
+output: 
+  html_document:
+    code_folding = hide
+    toc = true
+    theme: flatly
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(janitor)
+```
+
+### Getting the Raw Data
+```{r}
+#readr::read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTf8eDSN_2QbMTyVvO5bdYKZSEEF2bufDdYnLnL-TsR8LM-6x-xu1cxmDMohlbLrkMJn9DE7EG7pg5P/pub?gid=1724783278&single=true&output=csv")
+raw_data = read_csv("class_survey.csv")
+```
+
+### Cleaning the dataset using Janitor and defining column names
+
+```{r}
+raw_data = raw_data %>% janitor::clean_names()
+colnames(raw_data)[2] = "covid_test"
+colnames(raw_data)[4] = "postcode"
+colnames(raw_data)[5] = "dentist"
+colnames(raw_data)[6] = "university_work"
+colnames(raw_data)[7] = "social_media"
+colnames(raw_data)[8] = "dog_or_cat"
+colnames(raw_data)[9] = "live_with_parents"
+colnames(raw_data)[10] = "exercising"
+colnames(raw_data)[11] = "eye_colour"
+colnames(raw_data)[13] = "paid_work"
+colnames(raw_data)[14] = "fav_season"
+colnames(raw_data)[15] = "shoe_size"
+colnames(raw_data)[16] = "height"
+colnames(raw_data)[17] = "floss_frequency"
+colnames(raw_data)[18] = "glasses_or_contacts"
+colnames(raw_data)[19] = "dominant_hand"
+colnames(raw_data)[20] = "steak_preference"
+colnames(raw_data)[21] = "stress_level"
+
+colnames(raw_data)
+```
+
+## 4.0 Test for Poisson Distribution for COVID Tests in the sample data
+
+Here we state $H_0$: the data comes from a Poisson distribution vs $H_1$: the data does not come from a Poisson distribution.
+
+Here we make the assumptions that the observations are indepedent, and $e_i = np_i \geq 5$, meaning that the expected frequencies are greater than 5.
+
+```{r}
+y = c(123, 28, 10, 6, 1, 2, 1, 0, 0, 0, 1)
+x = 0:10
+n = sum(y)
+k = length(y)
+(lam = sum(y * x)/n)
+```
+
+```{r}
+p = dpois(x, lambda = lam)
+p
+```
+
+```{r}
+p[11] = 1 - sum(p[1:10])
+round(p, 5)
+```
+
+```{r}
+(ey = n * p)
+```
+
+```{r}
+ey >= 5
+```
+
+```{r}
+(yr = c(y[1:2], sum(y[3:11])))
+```
+
+```{r}
+(eyr = c(ey[1:2], sum(ey[3:11])))
+```
+
+
+```{r}
+(pr = c(p[1:2], sum(p[3:11])))
+```
+
+```{r}
+kr = length(yr)
+(t0 = sum((yr - eyr)^2/eyr))
+```
+
+```{r}
+(pval = 1 - pchisq(t0, df = kr - 1 - 1))
+```
+
+```{r}
+chisq.test(yr, p = pr)
+```
+
+As we can see, the chi squared test gets a different value than the one that has been calculated, mostly due to the fact that the degrees of freedom in the test are incorrect. By summing up the values that are lesser than 5, the result for the degrees of freedom changes due to a different length for the data of COVID tests done by the sample.
+
+The p-value obtained from the test is ~0.0000093, which is lower than the required 0.05, thus the null hypothesis is rejected as the sample data does not follow a Poisson distribution, evident from the significantly lower p-value.
+
+## 5.0 Test for Testing for homogeneity in genders and if they wear glasses or contacts
+
+To do the test, we first have to ensure that the data is clean and doesn't contain missing values that can unfavourably alter the data, so we have to remove columns where NA exists for conducting an accurate test for homogeneity.By using visdat to see the percentage of missing values in the data, we can get a clearer idea of where the NA values reside in the table.
+
+```{r}
+library(visdat)
+visdat::vis_miss(raw_data)
+```
+Since there are only 2 observations for the non-binary gender category, it makes more sense statistically to form a test for homogeneity in a 2x2 table rather than creating a general table for the 2 observations. Therefore, in addition to cleaning we have to filter out the observation from the dataset.
+
+```{r}
+x = raw_data[rowSums(is.na(raw_data)) == 0,]
+x = x %>% dplyr::filter(gender != "non-binary" & gender != "non binary")
+```
+
+However, there needs to be further cleaning done as the observation values for gender is represented in various formats and spellings, therefore for maintaining a 2x2 table, we need to wrangle the gender values to be uniform. It seemed best to use the gendercodeR as this fits the exact function of the package and doesn't require manually wrangling the different variations of the word. Since the package is not available on CRAN, the preceding steps to using it are provided as comments.
+
+This is what the table looks like before the inconsistent values have been wrangled.
+```{r}
+y_tab = table(x$gender, x$glasses_or_contacts)
+y_tab
+```
+
+```{r}
+# install.packages("devtools")
+# devtools::install_github("ropenscilabs/gendercodeR")
+library(gendercodeR)
+x = x %>% mutate(
+  gender = gendercodeR::recode_gender(gender)
+)
+```
+
+The following is what the table looks like after gendercodeR processes all the various spellings and formats of addressing the two genders and compiles a wrangled table that is appropriate for testing, and now that the NA or missing values from all the columns have been removed, we can now create a two-way contingency table for conducting the test for homogeneity .
+
+```{r}
+x_tab = table(x$gender, x$glasses_or_contacts)
+x_tab
+```
+
+The test for homogeneity consists of the null hypothesis $H_0$ which states that both the genders have a homogeneous distribution of the values for wearing glasses or contacts while the alternate hypothesis $H_1$ states that they are not equal, or not homogeneous across the two populations.
+$H_0: p_{11} = p_{21} \ \& \ p_{12} = p_{22}$ vs $H_1: p_{11} \neq p_{21} \ \& \ p_{12} \neq p_{22}$
+
+We are also assuming that $e_{ij} = \frac {y_{i\bullet}y_{\bullet j}}{n} \geq 5$
+
+```{r}
+n = sum(x_tab)
+r = c = 2
+(row_totals = apply(x_tab, 1, sum))
+```
+
+```{r}
+(col_totals = apply(x_tab, 2, sum))
+```
+
+```{r}
+(rt = matrix(row_totals, nrow = r,
+ncol = c, byrow = FALSE))
+```
+
+```{r}
+(ct = matrix(col_totals, nrow = r,
+ncol = c, byrow = TRUE))
+```
+
+```{r}
+(etab = rt * ct / n)
+```
+
+```{r}
+etab >= 5
+
+```
+```{r}
+(t0 = sum((x_tab - etab)^2/etab))
+```
+
+```{r}
+(p.value = 1 - pchisq(t0, 1))
+```
+
+Since the observed p-value is ~0.016, we therefore reject the null hypothesis which claims that $H_0: p_{11} = p_{21} \ \& \ p_{12} = p_{22}$, or that there is a pattern of homogeneity across the populations. Due to the $p-value < 5$, we have to accept the alternate hypothesis, $H_1: p_{11} \neq p_{21} \ \& \ p_{12} \neq p_{22}$, which claims that the populations are not equal in the observations. We can therefore conclude that there is an uneven distribution across the male and female genders when it comes to them wearing glasses or contacts and wearing none.
+
+
+## 5.1 One Sample T-Test for Genders and their heights
+
+We want to test how the mean of the male population in the data compares with the average Australian male height. However, before we can compare values, we need to make sure that the height observations in the data are accurate and in a uniform format. Since the previous solution has wrangled the gender column for ease of use, this saves us an additional step in the following test.
+
+We can simply filter out the rows of observations where the gender provided is female to solely obtain the male height data.
+
+```{r}
+x_h = x[!x$gender == "female", ]
+```
+
+The following graph shows us where the possible discrepancies in the data set for height observations could lie. We can assume that some observations such as 1.50 have been written in metres whereas the uniform format would be centimetres.
+
+```{r}
+p1 = x_h %>% ggplot(aes(x = height)) + geom_histogram()
+p1
+```
+
+Since the only incorrect values in the height observations are centimetre vales written in metres, we can use mutate to create a case to mutliply observations that are absurdly low for the data. If there were other formats the height was written in (such as in feet/inches), we could write a separate case to convert those. Since there aren't any, this should suffice.
+
+```{r}
+x = x %>% 
+  dplyr::mutate(
+    height = dplyr::case_when(
+      height < 2.3 ~ height*100,
+      TRUE ~ height
+    )
+  )
+
+```
+
+Once the data is represented in a uniform unit such as metres, we can plot a graph to see the distribution of the heights of all males in the data set
+
+```{r}
+x %>% 
+  ggplot(aes(x = height)) +
+  geom_histogram() + 
+  labs(x = "Height (cm)", y = "Count") + 
+  theme_minimal()
+```
+
+
+

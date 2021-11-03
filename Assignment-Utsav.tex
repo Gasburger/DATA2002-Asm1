@@ -1,0 +1,1013 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={DATA2002 Assignment},
+  pdfauthor={Utsav Mitra},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{DATA2002 Assignment}
+\author{Utsav Mitra}
+\date{20/09/2020}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\hypertarget{introduction}{%
+\subsection{1.0 Introduction}\label{introduction}}
+
+The survey filled out by the students enrolled in the DATA2002/2902
+contains several questions across broad categories ranginf from basic
+information such as gender, height and postcode to questions that ask
+the student to report their preferred doneness of steak and their
+favourite season. The survey contains both categorical data and
+numerical data and contains some missing values from the participants
+who left some questions incomplete.
+
+\hypertarget{randomness-of-the-sample-data}{%
+\subsection{2.0 Randomness of the Sample
+Data}\label{randomness-of-the-sample-data}}
+
+The students of DATA2002 who filled out the survery cannot be classified
+as a random sample as the sameple of students is self-selected and this
+gives rise to measurement error due to the self-selection bias.
+
+\hypertarget{improvements-to-the-data}{%
+\subsection{2.1 Improvements to the
+Data}\label{improvements-to-the-data}}
+
+The survey should contain drop down menus for the categorical data as it
+ensures uniformity and a potentially higher response rate as several NA
+or missing values could be avoided if the student did not have to type
+in their response to the questions. The survery should also mention
+units when it comes to numerical data to ensure uniformity in the
+observations such as height, which could be represented in a number of
+units.
+
+There could have been questions that seek to avoid the bias of social
+desirability as self reported responses such as hours spent studying
+university material, height, hours spent exercising and frequency of
+flossing teeth can result in data that is incorrectly skewed than the
+reality as most students would want to appear taller, hardworking,
+healthy and hygienic.
+
+\hypertarget{potential-biases}{%
+\subsection{2.2 Potential Biases}\label{potential-biases}}
+
+The data contains a sampling bias due to the nature of the survey being
+only accessible to the students enrolled in the unit. Various factors in
+the data such as if the student lives with their parents are not is
+something that is significantly higher than if the survery was conducted
+with a random sample across all age groups. Factors such as height and
+even the frequency of the student flossing their teeth come under social
+desirability bias, where the student would want to report a taller
+height if they are short or want to report a higher frequency of
+flossing as to not appear unhygienic
+
+\hypertarget{data-wrangling}{%
+\subsection{3.0 Data Wrangling}\label{data-wrangling}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#readr::read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTf8eDSN_2QbMTyVvO5bdYKZSEEF2bufDdYnLnL-TsR8LM-6x-xu1cxmDMohlbLrkMJn9DE7EG7pg5P/pub?gid=1724783278&single=true&output=csv")}
+\NormalTok{raw_data =}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"class_survey.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Parsed with column specification:
+## cols(
+##   .default = col_character(),
+##   `How many times have you been tested for COVID?` = col_double(),
+##   `Postcode of where you live during semester` = col_double(),
+##   `On average, how many hours per week did you spend on university work last semester?` = col_double(),
+##   `How many hours a week do you spend exercising?` = col_double(),
+##   `On average, how many hours per week did you work in paid employment in semester 1?` = col_double(),
+##   `What is your shoe size?` = col_double(),
+##   `How tall are you?` = col_double(),
+##   `On a scale from 0 to 10, please indicate how stressed you have felt in the past week.` = col_double()
+## )
+\end{verbatim}
+
+\begin{verbatim}
+## See spec(...) for full column specifications.
+\end{verbatim}
+
+\hypertarget{cleaning-the-dataset-using-janitor-and-defining-column-names}{%
+\subsubsection{Cleaning the dataset using Janitor and defining column
+names}\label{cleaning-the-dataset-using-janitor-and-defining-column-names}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{raw_data =}\StringTok{ }\NormalTok{raw_data }\OperatorTok{%>%}\StringTok{ }\NormalTok{janitor}\OperatorTok{::}\KeywordTok{clean_names}\NormalTok{()}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{2}\NormalTok{] =}\StringTok{ "covid_test"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{4}\NormalTok{] =}\StringTok{ "postcode"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{5}\NormalTok{] =}\StringTok{ "dentist"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{6}\NormalTok{] =}\StringTok{ "university_work"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{7}\NormalTok{] =}\StringTok{ "social_media"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{8}\NormalTok{] =}\StringTok{ "dog_or_cat"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{9}\NormalTok{] =}\StringTok{ "live_with_parents"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{10}\NormalTok{] =}\StringTok{ "exercising"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{11}\NormalTok{] =}\StringTok{ "eye_colour"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{13}\NormalTok{] =}\StringTok{ "paid_work"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{14}\NormalTok{] =}\StringTok{ "fav_season"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{15}\NormalTok{] =}\StringTok{ "shoe_size"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{16}\NormalTok{] =}\StringTok{ "height"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{17}\NormalTok{] =}\StringTok{ "floss_frequency"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{18}\NormalTok{] =}\StringTok{ "glasses_or_contacts"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{19}\NormalTok{] =}\StringTok{ "dominant_hand"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{20}\NormalTok{] =}\StringTok{ "steak_preference"}
+\KeywordTok{colnames}\NormalTok{(raw_data)[}\DecValTok{21}\NormalTok{] =}\StringTok{ "stress_level"}
+
+\KeywordTok{colnames}\NormalTok{(raw_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "timestamp"           "covid_test"          "gender"             
+##  [4] "postcode"            "dentist"             "university_work"    
+##  [7] "social_media"        "dog_or_cat"          "live_with_parents"  
+## [10] "exercising"          "eye_colour"          "do_you_have_asthma" 
+## [13] "paid_work"           "fav_season"          "shoe_size"          
+## [16] "height"              "floss_frequency"     "glasses_or_contacts"
+## [19] "dominant_hand"       "steak_preference"    "stress_level"
+\end{verbatim}
+
+\hypertarget{test-for-poisson-distribution-for-covid-tests-in-the-sample-data}{%
+\subsection{4.0 Test for Poisson Distribution for COVID Tests in the
+sample
+data}\label{test-for-poisson-distribution-for-covid-tests-in-the-sample-data}}
+
+Here we state \(H_0\): the data comes from a Poisson distribution vs
+\(H_1\): the data does not come from a Poisson distribution.
+
+Here we make the assumptions that the observations are indepedent, and
+\(e_i = np_i \geq 5\), meaning that the expected frequencies are greater
+than 5.
+
+We first begin by computing the variables required for the Poisson
+distribution function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{123}\NormalTok{, }\DecValTok{28}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{6}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{x =}\StringTok{ }\DecValTok{0}\OperatorTok{:}\DecValTok{10}
+\NormalTok{n =}\StringTok{ }\KeywordTok{sum}\NormalTok{(y)}
+\NormalTok{k =}\StringTok{ }\KeywordTok{length}\NormalTok{(y)}
+\NormalTok{(}\DataTypeTok{lam =} \KeywordTok{sum}\NormalTok{(y }\OperatorTok{*}\StringTok{ }\NormalTok{x)}\OperatorTok{/}\NormalTok{n)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5581395
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p =}\StringTok{ }\KeywordTok{dpois}\NormalTok{(x, }\DataTypeTok{lambda =}\NormalTok{ lam)}
+\NormalTok{p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 0.5722727675712237 0.3194080563188226 0.0891371319959504 0.0165836524643629
+##  [5] 0.0023139980182832 0.0002583067555293 0.0000240285353981 0.0000019158965101
+##  [9] 0.0000001336671984 0.0000000082894387 0.0000000004626663
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p[}\DecValTok{11}\NormalTok{] =}\StringTok{ }\DecValTok{1} \OperatorTok{-}\StringTok{ }\KeywordTok{sum}\NormalTok{(p[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{])}
+\KeywordTok{round}\NormalTok{(p, }\DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 0.57227 0.31941 0.08914 0.01658 0.00231 0.00026 0.00002 0.00000 0.00000
+## [10] 0.00000 0.00000
+\end{verbatim}
+
+We can now compute the expected values for the checking the distribution
+fit
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{ey =}\NormalTok{ n }\OperatorTok{*}\StringTok{ }\NormalTok{p)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 98.43091602225047 54.93818568683749 15.33158670330348  2.85238822387042
+##  [5]  0.39800765914471  0.04442876195104  0.00413290808847  0.00032953419975
+##  [9]  0.00002299075812  0.00000142578345  0.00000008381262
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ey }\OperatorTok{>=}\StringTok{ }\DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{yr =} \KeywordTok{c}\NormalTok{(y[}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{], }\KeywordTok{sum}\NormalTok{(y[}\DecValTok{3}\OperatorTok{:}\DecValTok{11}\NormalTok{])))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 123  28  21
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{eyr =} \KeywordTok{c}\NormalTok{(ey[}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{], }\KeywordTok{sum}\NormalTok{(ey[}\DecValTok{3}\OperatorTok{:}\DecValTok{11}\NormalTok{])))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 98.43092 54.93819 18.63090
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{pr =} \KeywordTok{c}\NormalTok{(p[}\DecValTok{1}\OperatorTok{:}\DecValTok{2}\NormalTok{], }\KeywordTok{sum}\NormalTok{(p[}\DecValTok{3}\OperatorTok{:}\DecValTok{11}\NormalTok{])))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5722728 0.3194081 0.1083192
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{kr =}\StringTok{ }\KeywordTok{length}\NormalTok{(yr)}
+\NormalTok{(}\DataTypeTok{t0 =} \KeywordTok{sum}\NormalTok{((yr }\OperatorTok{-}\StringTok{ }\NormalTok{eyr)}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\NormalTok{eyr))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 19.64265
+\end{verbatim}
+
+After obtaining the t statistic, we can use this value to calculate the
+p-value for testing the consistency of the data with the null
+hypothesis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{pval =} \DecValTok{1} \OperatorTok{-}\StringTok{ }\KeywordTok{pchisq}\NormalTok{(t0, }\DataTypeTok{df =}\NormalTok{ kr }\OperatorTok{-}\StringTok{ }\DecValTok{1} \OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.000009336178
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{chisq.test}\NormalTok{(yr, }\DataTypeTok{p =}\NormalTok{ pr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Chi-squared test for given probabilities
+## 
+## data:  yr
+## X-squared = 19.643, df = 2, p-value = 0.00005428
+\end{verbatim}
+
+As we can see, the chi squared test gets a different value than the one
+that has been calculated, mostly due to the fact that the degrees of
+freedom in the test are incorrect. By summing up the values that are
+lesser than 5, the result for the degrees of freedom changes due to a
+different length for the data of COVID tests done by the sample.
+
+The p-value obtained from the test is \textasciitilde0.0000093, which is
+lower than the required 0.05, thus the null hypothesis is rejected as
+the sample data does not follow a Poisson distribution, evident from the
+significantly lower p-value.
+
+\hypertarget{test-for-testing-for-homogeneity-in-genders-and-if-they-wear-glasses-or-contacts}{%
+\subsection{5.0 Test for Testing for homogeneity in genders and if they
+wear glasses or
+contacts}\label{test-for-testing-for-homogeneity-in-genders-and-if-they-wear-glasses-or-contacts}}
+
+To do the test, we first have to ensure that the data is clean and
+doesn't contain missing values that can unfavourably alter the data, so
+we have to remove columns where NA exists for conducting an accurate
+test for homogeneity.By using visdat to see the percentage of missing
+values in the data, we can get a clearer idea of where the NA values
+reside in the table.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(visdat)}
+\NormalTok{visdat}\OperatorTok{::}\KeywordTok{vis_miss}\NormalTok{(raw_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Assignment-Utsav_files/figure-latex/unnamed-chunk-14-1.pdf}
+Since there are only 2 observations for the non-binary gender category,
+it makes more sense statistically to form a test for homogeneity in a
+2x2 table rather than creating a general table for the 2 observations.
+Therefore, in addition to cleaning we have to filter out the observation
+from the dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x =}\StringTok{ }\NormalTok{raw_data[}\KeywordTok{rowSums}\NormalTok{(}\KeywordTok{is.na}\NormalTok{(raw_data)) }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{,]}
+\NormalTok{x =}\StringTok{ }\NormalTok{x }\OperatorTok{%>%}\StringTok{ }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{filter}\NormalTok{(gender }\OperatorTok{!=}\StringTok{ "non-binary"} \OperatorTok{&}\StringTok{ }\NormalTok{gender }\OperatorTok{!=}\StringTok{ "non binary"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+However, there needs to be further cleaning done as the observation
+values for gender is represented in various formats and spellings,
+therefore for maintaining a 2x2 table, we need to wrangle the gender
+values to be uniform. It seemed best to use the gendercodeR as this fits
+the exact function of the package and doesn't require manually wrangling
+the different variations of the word. Since the package is not available
+on CRAN, the preceding steps to using it are provided as comments.
+
+This is what the table looks like before the inconsistent values have
+been wrangled.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y_tab =}\StringTok{ }\KeywordTok{table}\NormalTok{(x}\OperatorTok{$}\NormalTok{gender, x}\OperatorTok{$}\NormalTok{glasses_or_contacts)}
+\NormalTok{y_tab}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         
+##          No Yes
+##   F       2   4
+##   femail  0   1
+##   female  2   3
+##   Female 11  22
+##   FEMALE  0   1
+##   m       1   1
+##   M       3   1
+##   male    1  11
+##   mAle    1   0
+##   Male   44  28
+##   MALE    0   1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# install.packages("devtools")}
+\CommentTok{# devtools::install_github("ropenscilabs/gendercodeR")}
+\KeywordTok{library}\NormalTok{(gendercodeR)}
+\NormalTok{x =}\StringTok{ }\NormalTok{x }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}
+  \DataTypeTok{gender =}\NormalTok{ gendercodeR}\OperatorTok{::}\KeywordTok{recode_gender}\NormalTok{(gender)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+The following is what the table looks like after gendercodeR processes
+all the various spellings and formats of addressing the two genders and
+compiles a wrangled table that is appropriate for testing, and now that
+the NA or missing values from all the columns have been removed, we can
+now create a two-way contingency table for conducting the test for
+homogeneity .
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x_tab =}\StringTok{ }\KeywordTok{table}\NormalTok{(x}\OperatorTok{$}\NormalTok{gender, x}\OperatorTok{$}\NormalTok{glasses_or_contacts)}
+\NormalTok{x_tab}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##         
+##          No Yes
+##   female 15  31
+##   male   50  42
+\end{verbatim}
+
+The test for homogeneity consists of the null hypothesis \(H_0\) which
+states that both the genders have a homogeneous distribution of the
+values for wearing glasses or contacts while the alternate hypothesis
+\(H_1\) states that they are not equal, or not homogeneous across the
+two populations. \(H_0: p_{11} = p_{21} \ \& \ p_{12} = p_{22}\) vs
+\(H_1: p_{11} \neq p_{21} \ \& \ p_{12} \neq p_{22}\)
+
+We are also assuming that
+\(e_{ij} = \frac {y_{i\bullet}y_{\bullet j}}{n} \geq 5\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n =}\StringTok{ }\KeywordTok{sum}\NormalTok{(x_tab)}
+\NormalTok{r =}\StringTok{ }\NormalTok{c =}\StringTok{ }\DecValTok{2}
+\NormalTok{(}\DataTypeTok{row_totals =} \KeywordTok{apply}\NormalTok{(x_tab, }\DecValTok{1}\NormalTok{, sum))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## female   male 
+##     46     92
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{col_totals =} \KeywordTok{apply}\NormalTok{(x_tab, }\DecValTok{2}\NormalTok{, sum))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  No Yes 
+##  65  73
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{rt =} \KeywordTok{matrix}\NormalTok{(row_totals, }\DataTypeTok{nrow =}\NormalTok{ r,}
+\DataTypeTok{ncol =}\NormalTok{ c, }\DataTypeTok{byrow =} \OtherTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]   46   46
+## [2,]   92   92
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{ct =} \KeywordTok{matrix}\NormalTok{(col_totals, }\DataTypeTok{nrow =}\NormalTok{ r,}
+\DataTypeTok{ncol =}\NormalTok{ c, }\DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]   65   73
+## [2,]   65   73
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{etab =}\NormalTok{ rt }\OperatorTok{*}\StringTok{ }\NormalTok{ct }\OperatorTok{/}\StringTok{ }\NormalTok{n)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]     [,2]
+## [1,] 21.66667 24.33333
+## [2,] 43.33333 48.66667
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{etab }\OperatorTok{>=}\StringTok{ }\DecValTok{5}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,] TRUE TRUE
+## [2,] TRUE TRUE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{t0 =} \KeywordTok{sum}\NormalTok{((x_tab }\OperatorTok{-}\StringTok{ }\NormalTok{etab)}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\NormalTok{etab))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5.816649
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\DataTypeTok{p.value =} \DecValTok{1} \OperatorTok{-}\StringTok{ }\KeywordTok{pchisq}\NormalTok{(t0, }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.01587516
+\end{verbatim}
+
+Since the observed p-value is \textasciitilde0.016, we therefore reject
+the null hypothesis which claims that
+\(H_0: p_{11} = p_{21} \ \& \ p_{12} = p_{22}\), or that there is a
+pattern of homogeneity across the populations. Due to the
+\(p-value < 5\), we have to accept the alternate hypothesis,
+\(H_1: p_{11} \neq p_{21} \ \& \ p_{12} \neq p_{22}\), which claims that
+the populations are not equal in the observations. We can therefore
+conclude that there is an uneven distribution across the male and female
+genders when it comes to them wearing glasses or contacts and wearing
+none.
+
+\hypertarget{one-sample-t-test-for-males-and-their-reported-heights}{%
+\subsection{5.1 One Sample T-Test for Males and their reported
+heights}\label{one-sample-t-test-for-males-and-their-reported-heights}}
+
+We want to test how the mean of the male population in the data compares
+with the average Australian male height. However, before we can compare
+values, we need to make sure that the height observations in the data
+are accurate and in a uniform format. Since the previous solution has
+wrangled the gender column for ease of use, this saves us an additional
+step in the following test.
+
+We can simply filter out the rows of observations where the gender
+provided is female to solely obtain the male height data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x_h =}\StringTok{ }\NormalTok{x[}\OperatorTok{!}\NormalTok{x}\OperatorTok{$}\NormalTok{gender }\OperatorTok{==}\StringTok{ "female"}\NormalTok{, ]}
+\end{Highlighting}
+\end{Shaded}
+
+The following graph shows us where the possible discrepancies in the
+data set for height observations could lie. We can assume that some
+observations such as 1.50 have been written in metres whereas the
+uniform format would be centimetres.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 =}\StringTok{ }\NormalTok{x_h }\OperatorTok{%>%}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ height)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_histogram}\NormalTok{()}
+\NormalTok{p1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{Assignment-Utsav_files/figure-latex/unnamed-chunk-28-1.pdf}
+
+Since the only incorrect values in the height observations are
+centimetre vales written in metres, we can use mutate to create a case
+to mutliply observations that are absurdly low for the data. If there
+were other formats the height was written in (such as in feet/inches),
+we could write a separate case to convert those. Since there aren't any,
+this should suffice.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{h_dat =}\StringTok{ }\NormalTok{x_h }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{mutate}\NormalTok{(}
+    \DataTypeTok{height =}\NormalTok{ dplyr}\OperatorTok{::}\KeywordTok{case_when}\NormalTok{(}
+\NormalTok{      height }\OperatorTok{<}\StringTok{ }\FloatTok{2.3} \OperatorTok{~}\StringTok{ }\NormalTok{height}\OperatorTok{*}\DecValTok{100}\NormalTok{,}
+      \OtherTok{TRUE} \OperatorTok{~}\StringTok{ }\NormalTok{height}
+\NormalTok{    )}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+Once the data is represented in a uniform unit such as metres, we can
+plot a graph to see the distribution of the heights of all males in the
+data set
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{h_dat }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ height)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_histogram}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Height (cm)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Count"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{Assignment-Utsav_files/figure-latex/unnamed-chunk-30-1.pdf}
+
+Now that the data has been formatted to rectify the inconsistent use of
+units, we can process this data to compute the t-test results.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y_h =}\StringTok{ }\KeywordTok{c}\NormalTok{(x_h}\OperatorTok{$}\NormalTok{height)}
+\NormalTok{y_h}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]   1.78 178.00 175.00 193.00 176.00 180.00 188.00   1.70 165.00 165.00
+## [11] 167.00 169.00 170.00 175.00 180.00 183.00 176.00 170.00 183.00 175.00
+## [21] 181.00 183.00   1.50 175.00 176.00   1.76 175.00 183.00 191.00 178.00
+## [31] 178.00 172.00 186.00 170.00 175.00 170.00 175.00 183.00 181.00 183.00
+## [41] 170.00 180.00 193.00 178.00 195.00 179.00 171.00 180.00 165.00 180.00
+## [51] 169.00 193.00 182.00 175.00 180.00 182.00 188.00 181.00 181.00 185.00
+## [61] 181.00 175.00 172.00 172.00 180.00 177.00 175.00 180.00 178.00 175.00
+## [71] 180.00 176.00 180.00 183.00 182.00 182.00 183.00 178.00 177.00 170.00
+## [81] 178.00 172.00 179.00 173.00 183.00 183.00 180.00 174.00 173.00 175.00
+## [91] 180.00 178.00
+\end{verbatim}
+
+For the one sample t-test being performed, the null hypothesis states
+that the mean of the previously hypothesised value for the Australian
+male and the observed values from the data of male students enrolled in
+this unit. The hypothesised value is 175.6cm, which has been obtained
+from the Australian Bureau of Statistics from the years 2011-2013. Given
+that the most recent official data was from over 8 years ago, the
+alternate hypothesis states that the observed values from the student
+data will have a higher mean than 175.6cm, given that height is one of
+the rapidly increasing transformations in humans across generations.
+Statistically, over the past 150 years, the average height in men has
+increased by \textasciitilde10cm (in developed countries such as
+Australia). Racial diversity in the unit can also be a factor as a less
+racially diverse sample such as the students in the unit could result in
+a skewed average compared to the national average, which, given the
+sample size would include several more data of various races. However,
+it is worth noting that there is a potential social desirability bias in
+the self reported heights of the male students and could possibly be
+higher than the real values of their heights.
+
+\(H_0: \mu = 175.6\) vs \(H1: \mu > 175.6\)
+
+Here with the help of a boxplot (and dotplot), we can visually interpret
+the difference in the mean of the observed values of the height of the
+males in the data and the average height of the Australian male being
+175.6cm (2012), which has been labelled as the blue dashed line as a
+frame of reference for the boxplot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{)}
+\NormalTok{df =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(y_h)}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{124}\NormalTok{)}
+\NormalTok{fig1 =}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(df, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \StringTok{""}\NormalTok{, }\DataTypeTok{y =}\NormalTok{ y_h)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{coef =} \DecValTok{10}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_dotplot}\NormalTok{(}\DataTypeTok{binaxis =} \StringTok{'y'}\NormalTok{,}
+               \DataTypeTok{stackdir =} \StringTok{'center'}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_hline}\NormalTok{(}\DataTypeTok{yintercept =} \FloatTok{175.6}\NormalTok{,}
+             \DataTypeTok{colour =} \StringTok{"blue"}\NormalTok{,}
+             \DataTypeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{y =} \StringTok{"Male Height (cm)"}\NormalTok{, }\DataTypeTok{x =} \StringTok{""}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme_bw}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{24}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.ticks.x =} \KeywordTok{element_blank}\NormalTok{(),}
+        \DataTypeTok{axis.text.x =} \KeywordTok{element_blank}\NormalTok{())}
+\NormalTok{fig1}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{Assignment-Utsav_files/figure-latex/unnamed-chunk-32-1.pdf}
+
+Now that we have a visual idea of what the data looks like, we can
+proceed by defining the variables required for the one sample t-test,
+such as the mean and the standard deviation of the data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{mean}\NormalTok{(y_h)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 170.4428
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sd}\NormalTok{(y_h)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 36.69113
+\end{verbatim}
+
+Once we have obtained the 2 values, we can compute the t-test using the
+native R function
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(y_h, }\DataTypeTok{mu =} \FloatTok{175.6}\NormalTok{, }\DataTypeTok{alternative =} \StringTok{"greater"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  One Sample t-test
+## 
+## data:  y_h
+## t = -1.3482, df = 91, p-value = 0.9095
+## alternative hypothesis: true mean is greater than 175.6
+## 95 percent confidence interval:
+##  164.086     Inf
+## sample estimates:
+## mean of x 
+##  170.4428
+\end{verbatim}
+
+Alternatively, we can calculate the p-value ourselves using a simple
+formula. Since the alternate hypothesis states the population mean is
+higher than the hypothesised mean,
+\(t_0 = \frac{175.6 - \bar{X}}{\frac{S}{\sqrt{n}}}\)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n =}\StringTok{ }\KeywordTok{length}\NormalTok{(y_h)}
+\NormalTok{t0 =}\StringTok{ }\NormalTok{(}\FloatTok{175.6} \OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(y_h))}\OperatorTok{/}\NormalTok{(}\KeywordTok{sd}\NormalTok{(y_h)}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n))}
+\NormalTok{pval =}\StringTok{ }\KeywordTok{pt}\NormalTok{(t0, n }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{)}
+\NormalTok{pval}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.909525
+\end{verbatim}
+
+As we can observe, the p-value from both the tests are identical, and
+due to the p-value being \(<0.05\), we must reject the null hypothesis
+in favour of the alternate hypothesis. The population mean of the male
+students was higher than the hypothesised value of 175.6cm.
+
+\hypertarget{conclusion}{%
+\subsection{6.0 Conclusion}\label{conclusion}}
+
+The tests conducted seek to process the data from the survey put forth
+by DATA2002 unit which asks a series of questions to the population of
+students, including factors used for testing such as the student's
+gender, if the student wears glasses or contacts and their self-reported
+height. The findings showed that there is no homogeneity between the
+genders when it comes to them wearing glasses, and that the reported
+heights of the male students is higher than that of the average
+Australian male as reported by the Australian Bureau of Statistics. The
+tests also show that the distribution of the sample population in
+relation to the COVID tests done does not follow a Poisson distribution.
+
+Given the limitations such as the inconvenience of entering the data,
+inconsistent formats and a non-response bias of the survery, the data is
+limited in its potential for information that could be extrapolated. The
+choice of questions should have been more careful to avoid a social
+desirability bias in the self-reported observations to get data that
+could potentially be more accurate to reality.
+
+\hypertarget{references}{%
+\subsection{7.0 References}\label{references}}
+
+Hiemstra, P. (2020). How to prevent scientific notation in R?. Retrieved
+23 September 2020, from
+\url{https://stackoverflow.com/questions/25946047/how-to-prevent-scientific-notation-in-r/25946211}
+
+Ng, C. (2020). Biases in self-reported height and weight measurements
+and their effects on modeling health outcomes. Retrieved 23 September
+2020, from \url{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6527819/}
+
+American, S. (2020). Why are we getting taller as a species?. Retrieved
+23 September 2020, from
+\url{https://www.scientificamerican.com/article/why-are-we-getting-taller/}
+
+4338.0 - Profiles of Health, Australia, 2011-13. (2020). Retrieved 23
+September 2020, from
+\url{https://www.abs.gov.au/ausstats/abs@.nsf/Lookup/by\%20Subject/4338.0~2011-13~Main\%20Features~Height\%20and\%20weight~21}
+
+jcblum. (2020). Error: Aesthetics must be either length 1 or the same as
+the data (2): fill. Retrieved 23 September 2020, from
+\url{https://community.rstudio.com/t/error-aesthetics-must-be-either-length-1-or-the-same-as-the-data-2-fill/15579/6}
+
+A box and whiskers plot (in the style of Tukey) --- geom\_boxplot.
+(2020). Retrieved 23 September 2020, from
+\url{https://ggplot2.tidyverse.org/reference/geom_boxplot.html}
+
+Jennifer Beaudry, Emily Kothe, Felix Singleton Thorn and Rhydwyn McGuire
+(2020). gendercodeR: Recodes Sex/Gender Descriptions Into A Standard
+Set. R package version 0.0.0.9000.
+\url{https://github.com/ropenscilabs/gendercoder} (Not available on
+CRAN)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{citation}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   Wickham et al., (2019). Welcome to the tidyverse. Journal of Open
+##   Source Software, 4(43), 1686, https://doi.org/10.21105/joss.01686
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Article{,
+##     title = {Welcome to the {tidyverse}},
+##     author = {Hadley Wickham and Mara Averick and Jennifer Bryan and Winston Chang and Lucy D'Agostino McGowan and Romain François and Garrett Grolemund and Alex Hayes and Lionel Henry and Jim Hester and Max Kuhn and Thomas Lin Pedersen and Evan Miller and Stephan Milton Bache and Kirill Müller and Jeroen Ooms and David Robinson and Dana Paige Seidel and Vitalie Spinu and Kohske Takahashi and Davis Vaughan and Claus Wilke and Kara Woo and Hiroaki Yutani},
+##     year = {2019},
+##     journal = {Journal of Open Source Software},
+##     volume = {4},
+##     number = {43},
+##     pages = {1686},
+##     doi = {10.21105/joss.01686},
+##   }
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{citation}\NormalTok{(}\StringTok{"ggplot2"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## To cite ggplot2 in publications, please use:
+## 
+##   H. Wickham. ggplot2: Elegant Graphics for Data Analysis.
+##   Springer-Verlag New York, 2016.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Book{,
+##     author = {Hadley Wickham},
+##     title = {ggplot2: Elegant Graphics for Data Analysis},
+##     publisher = {Springer-Verlag New York},
+##     year = {2016},
+##     isbn = {978-3-319-24277-4},
+##     url = {https://ggplot2.tidyverse.org},
+##   }
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{citation}\NormalTok{(}\StringTok{"janitor"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## To cite package 'janitor' in publications use:
+## 
+##   Sam Firke (2020). janitor: Simple Tools for Examining and Cleaning
+##   Dirty Data. R package version 2.0.1.
+##   https://CRAN.R-project.org/package=janitor
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {janitor: Simple Tools for Examining and Cleaning Dirty Data},
+##     author = {Sam Firke},
+##     year = {2020},
+##     note = {R package version 2.0.1},
+##     url = {https://CRAN.R-project.org/package=janitor},
+##   }
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{citation}\NormalTok{(}\StringTok{"visdat"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Tierney N (2017). "visdat: Visualising Whole Data Frames." _JOSS_,
+## *2*(16), 355. doi: 10.21105/joss.00355 (URL:
+## https://doi.org/10.21105/joss.00355), <URL:
+## http://dx.doi.org/10.21105/joss.00355>.
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Article{,
+##     title = {visdat: Visualising Whole Data Frames},
+##     author = {Nicholas Tierney},
+##     doi = {10.21105/joss.00355},
+##     url = {http://dx.doi.org/10.21105/joss.00355},
+##     year = {2017},
+##     publisher = {Journal of Open Source Software},
+##     volume = {2},
+##     number = {16},
+##     pages = {355},
+##     journal = {JOSS},
+##   }
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{citation}\NormalTok{(}\StringTok{"devtools"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## To cite package 'devtools' in publications use:
+## 
+##   Hadley Wickham, Jim Hester and Winston Chang (2020). devtools: Tools
+##   to Make Developing R Packages Easier. R package version 2.3.2.
+##   https://CRAN.R-project.org/package=devtools
+## 
+## A BibTeX entry for LaTeX users is
+## 
+##   @Manual{,
+##     title = {devtools: Tools to Make Developing R Packages Easier},
+##     author = {Hadley Wickham and Jim Hester and Winston Chang},
+##     year = {2020},
+##     note = {R package version 2.3.2},
+##     url = {https://CRAN.R-project.org/package=devtools},
+##   }
+\end{verbatim}
+
+\end{document}

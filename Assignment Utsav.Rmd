@@ -1,0 +1,348 @@
+---
+title: "DATA2002 Assignment"
+author: "Utsav Mitra"
+date: "20/09/2020"
+output:
+  pdf_document:
+    toc: yes
+  html_document:
+    code_folding: hide
+    toc: yes
+    toc_float: yes
+---
+## 1.0 Introduction
+
+The survey filled out by the students enrolled in the DATA2002/2902 contains several questions across broad categories ranginf from basic information such as gender, height and postcode to questions that ask the student to report their preferred doneness of steak and their favourite season. The survey contains both categorical data and numerical data and contains some missing values from the participants who left some questions incomplete.
+
+
+## 2.0 Randomness of the Sample Data
+
+The students of DATA2002 who filled out the survery cannot be classified as a random sample as the sameple of students is self-selected and this gives rise to measurement error due to the self-selection bias.
+
+## 2.1 Improvements to the Data
+
+The survey should contain drop down menus for the categorical data as it ensures uniformity and a potentially higher response rate as several NA or missing values could be avoided if the student did not have to type in their response to the questions. The survery should also mention units when it comes to numerical data to ensure uniformity in the observations such as height, which could be represented in a number of units.
+
+There could have been questions that seek to avoid the bias of social desirability as self reported responses such as hours spent studying university material, height, hours spent exercising and frequency of flossing teeth can result in data that is incorrectly skewed than the reality as most students would want to appear taller, hardworking, healthy and hygienic.
+
+## 2.2 Potential Biases
+
+The data contains a sampling bias due to the nature of the survey being only accessible to the students enrolled in the unit. Various factors in the data such as if the student lives with their parents are not is something that is significantly higher than if the survery was conducted with a random sample across all age groups. Factors such as height and even the frequency of the student flossing their teeth come under social desirability bias, where the student would want to report a taller height if they are short or want to report a higher frequency of flossing as to not appear unhygienic 
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen=999)
+library(tidyverse)
+library(janitor)
+```
+
+## 3.0 Data Wrangling
+```{r}
+#readr::read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vTf8eDSN_2QbMTyVvO5bdYKZSEEF2bufDdYnLnL-TsR8LM-6x-xu1cxmDMohlbLrkMJn9DE7EG7pg5P/pub?gid=1724783278&single=true&output=csv")
+raw_data = read_csv("class_survey.csv")
+```
+
+### Cleaning the dataset using Janitor and defining column names
+
+```{r}
+raw_data = raw_data %>% janitor::clean_names()
+colnames(raw_data)[2] = "covid_test"
+colnames(raw_data)[4] = "postcode"
+colnames(raw_data)[5] = "dentist"
+colnames(raw_data)[6] = "university_work"
+colnames(raw_data)[7] = "social_media"
+colnames(raw_data)[8] = "dog_or_cat"
+colnames(raw_data)[9] = "live_with_parents"
+colnames(raw_data)[10] = "exercising"
+colnames(raw_data)[11] = "eye_colour"
+colnames(raw_data)[13] = "paid_work"
+colnames(raw_data)[14] = "fav_season"
+colnames(raw_data)[15] = "shoe_size"
+colnames(raw_data)[16] = "height"
+colnames(raw_data)[17] = "floss_frequency"
+colnames(raw_data)[18] = "glasses_or_contacts"
+colnames(raw_data)[19] = "dominant_hand"
+colnames(raw_data)[20] = "steak_preference"
+colnames(raw_data)[21] = "stress_level"
+
+colnames(raw_data)
+```
+
+## 4.0 Test for Poisson Distribution for COVID Tests in the sample data
+
+Here we state $H_0$: the data comes from a Poisson distribution vs $H_1$: the data does not come from a Poisson distribution.
+
+Here we make the assumptions that the observations are indepedent, and $e_i = np_i \geq 5$, meaning that the expected frequencies are greater than 5.
+
+We first begin by computing the variables required for the Poisson distribution function
+```{r}
+y = c(123, 28, 10, 6, 1, 2, 1, 0, 0, 0, 1)
+x = 0:10
+n = sum(y)
+k = length(y)
+(lam = sum(y * x)/n)
+```
+
+```{r}
+p = dpois(x, lambda = lam)
+p
+```
+
+```{r}
+p[11] = 1 - sum(p[1:10])
+round(p, 5)
+```
+
+We can now compute the expected values for the checking the distribution fit
+```{r}
+(ey = n * p)
+```
+
+```{r}
+ey >= 5
+```
+
+```{r}
+(yr = c(y[1:2], sum(y[3:11])))
+```
+
+```{r}
+(eyr = c(ey[1:2], sum(ey[3:11])))
+```
+
+
+```{r}
+(pr = c(p[1:2], sum(p[3:11])))
+```
+
+```{r}
+kr = length(yr)
+(t0 = sum((yr - eyr)^2/eyr))
+```
+After obtaining the t statistic, we can use this value to calculate the p-value for testing the consistency of the data with the null hypothesis.
+
+```{r}
+(pval = 1 - pchisq(t0, df = kr - 1 - 1))
+```
+
+```{r}
+chisq.test(yr, p = pr)
+```
+
+As we can see, the chi squared test gets a different value than the one that has been calculated, mostly due to the fact that the degrees of freedom in the test are incorrect. By summing up the values that are lesser than 5, the result for the degrees of freedom changes due to a different length for the data of COVID tests done by the sample.
+
+The p-value obtained from the test is ~0.0000093, which is lower than the required 0.05, thus the null hypothesis is rejected as the sample data does not follow a Poisson distribution, evident from the significantly lower p-value.
+
+## 5.0 Test for Testing for homogeneity in genders and if they wear glasses or contacts
+
+To do the test, we first have to ensure that the data is clean and doesn't contain missing values that can unfavourably alter the data, so we have to remove columns where NA exists for conducting an accurate test for homogeneity.By using visdat to see the percentage of missing values in the data, we can get a clearer idea of where the NA values reside in the table.
+
+```{r}
+library(visdat)
+visdat::vis_miss(raw_data)
+```
+Since there are only 2 observations for the non-binary gender category, it makes more sense statistically to form a test for homogeneity in a 2x2 table rather than creating a general table for the 2 observations. Therefore, in addition to cleaning we have to filter out the observation from the dataset.
+
+```{r}
+x = raw_data[rowSums(is.na(raw_data)) == 0,]
+x = x %>% dplyr::filter(gender != "non-binary" & gender != "non binary")
+```
+
+However, there needs to be further cleaning done as the observation values for gender is represented in various formats and spellings, therefore for maintaining a 2x2 table, we need to wrangle the gender values to be uniform. It seemed best to use the gendercodeR as this fits the exact function of the package and doesn't require manually wrangling the different variations of the word. Since the package is not available on CRAN, the preceding steps to using it are provided as comments.
+
+This is what the table looks like before the inconsistent values have been wrangled.
+```{r}
+y_tab = table(x$gender, x$glasses_or_contacts)
+y_tab
+```
+
+```{r}
+# install.packages("devtools")
+# devtools::install_github("ropenscilabs/gendercodeR")
+library(gendercodeR)
+x = x %>% mutate(
+  gender = gendercodeR::recode_gender(gender)
+)
+```
+
+The following is what the table looks like after gendercodeR processes all the various spellings and formats of addressing the two genders and compiles a wrangled table that is appropriate for testing, and now that the NA or missing values from all the columns have been removed, we can now create a two-way contingency table for conducting the test for homogeneity .
+
+```{r}
+x_tab = table(x$gender, x$glasses_or_contacts)
+x_tab
+```
+
+The test for homogeneity consists of the null hypothesis $H_0$ which states that both the genders have a homogeneous distribution of the values for wearing glasses or contacts while the alternate hypothesis $H_1$ states that they are not equal, or not homogeneous across the two populations.
+$H_0: p_{11} = p_{21} \ \& \ p_{12} = p_{22}$ vs $H_1: p_{11} \neq p_{21} \ \& \ p_{12} \neq p_{22}$
+
+We are also assuming that $e_{ij} = \frac {y_{i\bullet}y_{\bullet j}}{n} \geq 5$
+
+```{r}
+n = sum(x_tab)
+r = c = 2
+(row_totals = apply(x_tab, 1, sum))
+```
+
+```{r}
+(col_totals = apply(x_tab, 2, sum))
+```
+
+```{r}
+(rt = matrix(row_totals, nrow = r,
+ncol = c, byrow = FALSE))
+```
+
+```{r}
+(ct = matrix(col_totals, nrow = r,
+ncol = c, byrow = TRUE))
+```
+
+```{r}
+(etab = rt * ct / n)
+```
+
+```{r}
+etab >= 5
+
+```
+```{r}
+(t0 = sum((x_tab - etab)^2/etab))
+```
+
+```{r}
+(p.value = 1 - pchisq(t0, 1))
+```
+
+Since the observed p-value is ~0.016, we therefore reject the null hypothesis which claims that $H_0: p_{11} = p_{21} \ \& \ p_{12} = p_{22}$, or that there is a pattern of homogeneity across the populations. Due to the $p-value < 5$, we have to accept the alternate hypothesis, $H_1: p_{11} \neq p_{21} \ \& \ p_{12} \neq p_{22}$, which claims that the populations are not equal in the observations. We can therefore conclude that there is an uneven distribution across the male and female genders when it comes to them wearing glasses or contacts and wearing none.
+
+
+## 5.1 One Sample T-Test for Males and their reported heights
+
+We want to test how the mean of the male population in the data compares with the average Australian male height. However, before we can compare values, we need to make sure that the height observations in the data are accurate and in a uniform format. Since the previous solution has wrangled the gender column for ease of use, this saves us an additional step in the following test.
+
+We can simply filter out the rows of observations where the gender provided is female to solely obtain the male height data.
+
+```{r}
+x_h = x[!x$gender == "female", ]
+```
+
+The following graph shows us where the possible discrepancies in the data set for height observations could lie. We can assume that some observations such as 1.50 have been written in metres whereas the uniform format would be centimetres.
+
+```{r}
+p1 = x_h %>% ggplot(aes(x = height)) + geom_histogram()
+p1
+```
+
+Since the only incorrect values in the height observations are centimetre vales written in metres, we can use mutate to create a case to mutliply observations that are absurdly low for the data. If there were other formats the height was written in (such as in feet/inches), we could write a separate case to convert those. Since there aren't any, this should suffice.
+
+```{r}
+h_dat = x_h %>% 
+  dplyr::mutate(
+    height = dplyr::case_when(
+      height < 2.3 ~ height*100,
+      TRUE ~ height
+    )
+  )
+
+```
+
+Once the data is represented in a uniform unit such as metres, we can plot a graph to see the distribution of the heights of all males in the data set
+
+```{r}
+h_dat %>% 
+  ggplot(aes(x = height)) +
+  geom_histogram() + 
+  labs(x = "Height (cm)", y = "Count") + 
+  theme_minimal()
+```
+
+Now that the data has been formatted to rectify the inconsistent use of units, we can process this data to compute the t-test results.
+
+```{r}
+y_h = c(x_h$height)
+y_h
+```
+
+For the one sample t-test being performed, the null hypothesis states that the mean of the previously hypothesised value for the Australian male and the observed values from the data of male students enrolled in this unit. The hypothesised value is 175.6cm, which has been obtained from the Australian Bureau of Statistics from the years 2011-2013. Given that the most recent official data was from over 8 years ago, the alternate hypothesis states that the observed values from the student data will have a higher mean than 175.6cm, given that height is one of the rapidly increasing transformations in humans across generations. Statistically, over the past 150 years, the average height in men has increased by ~10cm (in developed countries such as Australia). Racial diversity in the unit can also be a factor as a less racially diverse sample such as the students in the unit could result in a skewed average compared to the national average, which, given the sample size would include several more data of various races. However, it is worth noting that there is a potential social desirability bias in the self reported heights of the male students and could possibly be higher than the real values of their heights.
+
+$H_0: \mu = 175.6$ vs $H1: \mu > 175.6$
+
+Here with the help of a boxplot (and dotplot), we can visually interpret the difference in the mean of the observed values of the height of the males in the data and the average height of the Australian male being 175.6cm (2012), which has been labelled as the blue dashed line as a frame of reference for the boxplot.
+
+```{r}
+library("ggplot2")
+df = data.frame(y_h)
+set.seed(124)
+fig1 = ggplot(df, aes(x = "", y = y_h)) +
+  geom_boxplot(alpha = 0.5, coef = 10) +
+  geom_dotplot(binaxis = 'y',
+               stackdir = 'center') +
+  geom_hline(yintercept = 175.6,
+             colour = "blue",
+             linetype = "dashed") +
+  labs(y = "Male Height (cm)", x = "") + 
+  theme_bw(base_size = 24) +
+  theme(axis.ticks.x = element_blank(),
+        axis.text.x = element_blank())
+fig1
+```
+
+Now that we have a visual idea of what the data looks like, we can proceed by defining the variables required for the one sample t-test, such as the mean and the standard deviation of the data.
+
+```{r}
+mean(y_h)
+sd(y_h)
+```
+
+Once we have obtained the 2 values, we can compute the t-test using the native R function
+```{r}
+t.test(y_h, mu = 175.6, alternative = "greater")
+```
+
+Alternatively, we can calculate the p-value ourselves using a simple formula. Since the alternate hypothesis states the population mean is higher than the hypothesised mean, $t_0 = \frac{175.6 - \bar{X}}{\frac{S}{\sqrt{n}}}$
+
+```{r}
+n = length(y_h)
+t0 = (175.6 - mean(y_h))/(sd(y_h)/sqrt(n))
+pval = pt(t0, n - 1)
+pval
+```
+
+As we can observe, the p-value from both the tests are identical, and due to the p-value being $<0.05$, we must reject the null hypothesis in favour of the alternate hypothesis. The population mean of the male students was higher than the hypothesised value of 175.6cm.
+
+## 6.0 Conclusion
+
+The tests conducted seek to process the data from the survey put forth by DATA2002 unit which asks a series of questions to the population of students, including factors used for testing such as the student's gender, if the student wears glasses or contacts and their self-reported height. The findings showed that there is no homogeneity between the genders when it comes to them wearing glasses, and that the reported heights of the male students is higher than that of the average Australian male as reported by the Australian Bureau of Statistics. The tests also show that the distribution of the sample population in relation to the COVID tests done does not follow a Poisson distribution.
+
+Given the limitations such as the inconvenience of entering the data, inconsistent formats and a non-response bias of the survery, the data is limited in its potential for information that could be extrapolated. The choice of questions should have been more careful to avoid a social desirability bias in the self-reported observations to get data that could potentially be more accurate to reality.
+
+## 7.0 References
+
+Hiemstra, P. (2020). How to prevent scientific notation in R?. Retrieved 23 September 2020, from https://stackoverflow.com/questions/25946047/how-to-prevent-scientific-notation-in-r/25946211
+
+Ng, C. (2020). Biases in self-reported height and weight measurements and their effects on modeling health outcomes. Retrieved 23 September 2020, from https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6527819/
+
+American, S. (2020). Why are we getting taller as a species?. Retrieved 23 September 2020, from https://www.scientificamerican.com/article/why-are-we-getting-taller/
+
+4338.0 - Profiles of Health, Australia, 2011-13. (2020). Retrieved 23 September 2020, from https://www.abs.gov.au/ausstats/abs@.nsf/Lookup/by%20Subject/4338.0~2011-13~Main%20Features~Height%20and%20weight~21
+
+jcblum. (2020). Error: Aesthetics must be either length 1 or the same as the data (2): fill. Retrieved 23 September 2020, from https://community.rstudio.com/t/error-aesthetics-must-be-either-length-1-or-the-same-as-the-data-2-fill/15579/6
+
+A box and whiskers plot (in the style of Tukey) — geom_boxplot. (2020). Retrieved 23 September 2020, from https://ggplot2.tidyverse.org/reference/geom_boxplot.html
+
+Jennifer Beaudry, Emily Kothe, Felix Singleton Thorn and Rhydwyn McGuire (2020). gendercodeR: Recodes
+Sex/Gender Descriptions Into A Standard Set. R package version 0.0.0.9000.
+https://github.com/ropenscilabs/gendercoder
+(Not available on CRAN)
+
+```{r}
+citation("tidyverse")
+citation("ggplot2")
+citation("janitor")
+citation("visdat")
+citation("devtools")
+```
+
+
+
